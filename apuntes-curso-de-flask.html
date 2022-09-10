@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<title>Curso de Flask</title>
+</head>
+
+<body>
+<header class="text-center">
+<h1>Curso de Flask</h1>
+</header>
+<main class="container">
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 1 de 36 - Qué aprenderás sobre Flask</h2>
+    
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 2 de 33 - ¿Cómo funcionan las aplicaciones en internet?</h2>
+    
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 3 de 36 - Que es Flask</h2>
+    
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 4 de 36 - Instalación de Python, pip y virtualenv</h2>
+    <div class="MaterialLecture-text"><h3>Esta es la guía para configurar nuestro ambiente con Python 3.</h3>
+        <p>Por lo general Mac ya incluye una instalación de Python, la puedes verificar ejecutando los siguientes comandos en una terminal:</p>
+        <pre><code>python --version
+        </code></pre>
+        <blockquote></blockquote>
+        <pre><code>python3 --version
+        </code></pre>
+        <p>Debemos asegurarnos de tener <strong>python 3</strong>. Para instalar Python puedes seguir el siguiente enlace y después regresar a esta lectura.</p>
+        <p><a href="https://platzi.com/clases/1378-python/14289-guia-de-instalacion-y-conceptos-basicos/" target="_blank" rel="noopener">https://platzi.com/clases/1378-python/14289-guia-de-instalacion-y-conceptos-basicos/</a></p>
+        <h3>Instalación en Windows</h3>
+        <p>Una vez que instalaste <strong>python 3</strong> desde <a href="https://www.python.org/" target="_blank" rel="noopener">python.org</a> vamos a verificar que también incluimos <strong>pip</strong> en esta instalación. Después debes correr el siguiente comando para instalar virtualenv:</p>
+        <pre><code>pip install virtualenv
+        </code></pre>
+        <p>El sistema debe haber instalado virtualenv y ahora podemos comenzar con el curso.</p>
+        <h3>Instalación en Mac</h3>
+        <p>Si ya instalaste python 3 ahora corre el siguiente comando para instalar <strong>pip</strong>:</p>
+        <pre><code>sudo easy_install pip
+        </code></pre>
+        <p>Para install virtualenv de manera global corre:</p>
+        <pre><code>pip install virtualenv
+        </code></pre>
+        <p>El sistema debe haber instalado virtualenv y ahora podemos comenzar con el curso.</p></div>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 5 de 36 - Hello World Flask</h2>
+    <pre class="prettyprint">
+            
+    > python -m venv venv
+    </pre>
+    <pre class="prettyprint">
+
+    > venv\Scripts\activate
+    </pre>
+    <pre class="prettyprint">
+            
+    > pip install flask
+    </pre>
+
+    <pre class="prettyprint">
+            
+    > pip freeze
+    </pre>
+    <pre class="prettyprint">
+            
+    > pip install -r requirements.txt
+    </pre> 
+    <pre class="prettyprint">
+            
+    > touch main.py
+    </pre>
+
+    <pre class="prettyprint">
+            
+        from flask import Flask
+
+        app = Flask(__name__)
+        
+        
+        @app.route('/')
+        def hello():
+            return 'Hello world flask'
+    </pre>
+
+    <pre class="prettyprint">
+        // windows
+        > SET FLASK_APP=main.py
+
+        // otros
+        > export FLASK_APP=main.py
+    </pre>
+    <pre class="prettyprint">
+            
+    > flask run
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 6 de 36 - Debugging en flask</h2>
+    <pre class="prettyprint">
+            
+    > SET FLASK_DEBUG=1
+    </pre>
+    <pre class="prettyprint">
+            
+    > flask run
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 7 de 36 - Request y response</h2>
+    <pre class="prettyprint">
+            
+        from flask import Flask, request
+
+        app = Flask(__name__)
+        
+        
+        @app.route('/')
+        def hello():
+            user_ip = request.remote_addr
+            return f'Hola su ip es: { user_ip }'
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 8 de 36 - ciclos de request y response</h2>
+    <pre class="prettyprint">
+            
+        from flask import Flask, request, make_response, redirect
+
+        app = Flask(__name__)
+        
+        
+        @app.route('/')
+        def index():
+            user_ip = request.remote_addr
+            response = make_response(redirect('/hello'))
+            response.set_cookie('user_ip', user_ip)
+            return response
+        
+        
+        @app.route('/hello')
+        def hello():
+            user_ip = request.cookies.get('user_ip')
+            return f'Hola su ip guardada en cookie es: { user_ip }'
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 9 de 36 - Templates con jinja 2</h2>
+    <pre class="prettyprint">
+            
+        from flask import Flask, request, make_response, redirect, render_template
+
+        app = Flask(__name__)
+        
+        
+        @app.route('/')
+        def index():
+            user_ip = request.remote_addr
+            response = make_response(redirect('/hello'))
+            response.set_cookie('user_ip', user_ip)
+            return response
+        
+        
+        @app.route('/hello')
+        def hello():
+            user_ip = request.cookies.get('user_ip')
+            return render_template('hello.html', user_ip=user_ip)
+    </pre>
+
+    <pre class="prettyprint">
+            
+        &lt!DOCTYPE html>
+        &lthtml lang="en">
+        &lthead>
+            &ltmeta charset="UTF-8">
+            &ltmeta http-equiv="X-UA-Compatible" content="IE=edge">
+            &ltmeta name="viewport" content="width=device-width, initial-scale=1.0">
+            &lttitle>Hola Mundo en Flask&lt/title>
+        &lt/head>
+        &ltbody>
+            &lth1>Hola mundo en una plantilla para flask&lt/h1>
+            &ltp>tu ip es: {{ user_ip }}&lt/p>
+        &lt/body>
+        &lt/html>
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 10 de 36 - estructuras de control</h2>
+    <pre class="prettyprint">
+            
+        &lth1>Hola mundo en una plantilla para flask&lt/h1>
+        {% if user_ip %}
+            &ltp>tu ip es: {{ user_ip }}&lt/p>
+        {% else %}
+            &ltp>
+                &lta href="{{ url_for('index') }}">Ir a inicio&lt/a>
+            &lt/p>
+        {% endif %}
+    </pre>
+    <pre class="prettyprint">
+            
+        from flask import Flask, request, make_response, redirect, render_template
+
+        app = Flask(__name__)
+        
+        todos = ['TODO 1', 'TODO 2', 'TODO 3']
+        
+        @app.route('/')
+        def index():
+            user_ip = request.remote_addr
+            response = make_response(redirect('/hello'))
+            response.set_cookie('user_ip', user_ip)
+            return response
+        
+        
+        @app.route('/hello')
+        def hello():
+            user_ip = request.cookies.get('user_ip')
+            context = {
+                'user_ip': user_ip,
+                'todos': todos
+            }
+            return render_template('hello.html', **context)
+    </pre>
+    <pre class="prettyprint">
+            
+    &ltul>
+        {% for todo in todos %}
+        &ltli>{{ todo }}&lt/li>
+        {% endfor %}
+    &lt/ul>
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 11 de 36 - Herencia de Templates</h2>
+    <p>base.html</p>
+    <pre class="prettyprint">
+            
+        &lt!DOCTYPE html>
+        &lthtml lang="en">
+        &lthead>
+            &ltmeta charset="UTF-8">
+            &ltmeta http-equiv="X-UA-Compatible" content="IE=edge">
+            &ltmeta name="viewport" content="width=device-width, initial-scale=1.0">
+            &lttitle>{% block title %}Flask Platzi |{% endblock %}&lt/title>
+        &lt/head>
+        &ltbody>
+            {% block content %}
+            {% endblock %}
+        &lt/body>
+        &lt/html>
+    </pre>
+    <p>macros.hmtl</p>
+    <pre class="prettyprint">
+            
+    {% macro render_todo(todo) %}
+        &ltli>Descripción: {{ todo }}&lt/li>
+    {% endmacro %}
+    </pre>
+    <p>hello.html</p>
+    <pre class="prettyprint">
+            
+        {% extends 'base.html' %}
+        {% import 'macros.html' as macros %}
+        
+        {% block title %}
+            {{ super() }}
+            Bienvenido
+        {% endblock %}
+        
+        {% block content %}
+            &lth1>Hola mundo en una plantilla para flask&lt/h1>
+            {% if user_ip %}
+            &ltp>tu ip es: {{ user_ip }}&lt/p>
+            {% else %}
+            &ltp>
+                &lta href="{{ url_for('index') }}">Ir a inicio&lt/a>
+            &lt/p>
+            {% endif %}
+            &ltul>
+                {% for todo in todos %}
+                    {{ macros.render_todo(todo) }}
+                {% endfor %}
+            &lt/ul>
+        {% endblock %}
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 12 de 36 - include y links</h2>
+    <p>navbar.html</p>
+    <pre class="prettyprint">
+            
+    &ltnav>
+        &ltul>
+            &ltli>&lta href="{{ url_for('index') }}">Ir al inicio&lt/a>&lt/li>
+            &ltli>&lta href="https://platzi.com" target="_blank">Ir a Platzi&lt/a>&lt/li>
+        &lt/ul>
+    &lt/nav>
+    </pre>
+    <p>base.html</p>
+    <pre class="prettyprint">
+            
+        &lt!DOCTYPE html>
+        &lthtml lang="en">
+        &lthead>
+            &ltmeta charset="UTF-8">
+            &ltmeta http-equiv="X-UA-Compatible" content="IE=edge">
+            &ltmeta name="viewport" content="width=device-width, initial-scale=1.0">
+            &lttitle>{% block title %}Flask Platzi |{% endblock %}&lt/title>
+        &lt/head>
+        &ltbody>
+            &ltheader>
+                {% include 'navbar.html' %}
+            &lt/header>
+            {% block content %}
+            {% endblock %}
+        &lt/body>
+        &lt/html>
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 13 de 36 - Uso de Archivos estaticos: imagenes</h2>
+    <p>imagenes</p>
+    <pre class="prettyprint">
+            
+    &ltnav>
+        &ltul>
+            &ltimg src="{{ url_for('static', filename='images/platzi.png') }}" alt="Platzi Logo">
+            &ltli>&lta href="{{ url_for('index') }}">Ir al inicio&lt/a>&lt/li>
+            &ltli>&lta href="https://platzi.com" target="_blank">Ir a Platzi&lt/a>&lt/li>
+        &lt/ul>
+    &lt/nav>
+    </pre>
+    <p>css</p>
+    <pre class="prettyprint">
+            
+        &lt!DOCTYPE html>
+        &lthtml lang="en">
+        &lthead>
+            &ltmeta charset="UTF-8">
+            &ltmeta http-equiv="X-UA-Compatible" content="IE=edge">
+            &ltmeta name="viewport" content="width=device-width, initial-scale=1.0">
+            &lttitle>{% block title %}Flask Platzi |{% endblock %}&lt/title>
+            &ltlink rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        &lt/head>
+        &ltbody>
+            &ltheader>
+                {% include 'navbar.html' %}
+            &lt/header>
+            {% block content %}
+            {% endblock %}
+        &lt/body>
+        &lt/html>
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 14 de 37 - configurar paginas de error</h2>
+    <p>404.html</p>
+    <pre class="prettyprint">
+            
+      {% extends 'base.html' %}
+      
+      {% block title %}
+          {{ super() }}
+          Error 404
+      {% endblock %}
+      
+      {% block content %}
+          &lth1>Ups! Error 404&lt/h1>
+          &ltp>{{ error }}&lt/p>
+      {% endblock %}
+    </pre>
+    <p>main.py</p>
+    <pre class="prettyprint">
+            
+      from flask import Flask, request, make_response, redirect, render_template
+
+      app = Flask(__name__)
+      
+      todos = ['TODO 1', 'TODO 2', 'TODO 3']
+      
+      @app.errorhandler(404)
+      def not_found(error):
+          return render_template('404.html', error=error)
+      
+      @app.route('/')
+      def index():
+          user_ip = request.remote_addr
+          response = make_response(redirect('/hello'))
+          response.set_cookie('user_ip', user_ip)
+          return response
+      
+      
+      @app.route('/hello')
+      def hello():
+          user_ip = request.cookies.get('user_ip')
+          context = {
+              'user_ip': user_ip,
+              'todos': todos
+          }
+          return render_template('hello.html', **context)
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 15 de 36 - Flask Bootstrap</h2>
+    <p>main.py</p>
+    <pre class="prettyprint">
+            
+      from flask import Flask, request, make_response, redirect, render_template
+      from flask_bootstrap import Bootstrap
+      
+      app = Flask(__name__)
+      bootstrap = Bootstrap(app)
+    </pre>
+    <p>base.html</p>
+
+    <pre class="prettyprint">
+            
+      {% extends 'bootstrap/base.html' %}
+      {% block head %}
+          {{ super() }}
+          &lttitle>{% block title %}Flask Platzi |{% endblock %}&lt/title>
+          &ltlink rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      {% endblock %}
+      {% block body %}
+          {% block header %}
+              {% include 'navbar.html' %}
+          {% endblock %}
+          {% block content %}
+          {% endblock %}
+      {% endblock %}
+    </pre>
+    <p>navbar.html</p>
+    <pre class="prettyprint">
+            
+  &ltnav class="navbar navbar-default">
+      &ltdiv class="navbar-header">
+          &ltimg src="{{ url_for('static', filename='images/platzi.png') }}" alt="Platzi Logo">
+      &lt/div>
+      &ltul class="nav navbar-nav">
+          &ltli>&lta href="{{ url_for('index') }}">Ir al inicio&lt/a>&lt/li>
+          &ltli>&lta href="https://platzi.com" target="_blank">Ir a Platzi&lt/a>&lt/li>
+      &lt/ul>
+  &lt/nav>
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 16 de 36 - configuracion de flask</h2>
+    <pre class="prettyprint">
+            
+    > SET FLASK_ENV=development
+    </pre>
+    <p>Jugando son sessiones, dejamos las cookies inseguras</p>
+    <pre class="prettyprint">
+            
+      from flask import Flask, request, make_response, redirect, render_template, session
+      from flask_bootstrap import Bootstrap
+      
+      app = Flask(__name__)
+      bootstrap = Bootstrap(app)
+      
+      app.config['SECRET_KEY'] = 'SUPER SECRETO'
+      
+      todos = ['TODO 1', 'TODO 2', 'TODO 3']
+      
+      @app.errorhandler(404)
+      def not_found(error):
+          return render_template('404.html', error=error)
+      
+      @app.errorhandler(500)
+      def internal_server_error(error):
+        return render_template('500.html')
+      
+      @app.route('/')
+      def index():
+          user_ip = request.remote_addr
+          response = make_response(redirect('/hello'))
+          # response.set_cookie('user_ip', user_ip)
+          session['user_ip'] = user_ip
+          return response
+      
+      
+      @app.route('/hello')
+      def hello():
+          # raise(Exception('500 error'))
+          # mar = 'mar'[4]
+          # user_ip = request.cookies.get('user_ip')
+          user_ip = session.get('user_ip')
+          context = {
+              'user_ip': user_ip,
+              'todos': todos
+          }
+          return render_template('hello.html', **context)
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 17 de 36 - Implementación de Flask-Bootstrap y Flask-WTF</h2>
+    <pre class="prettyprint">
+            
+    > pip install Flask-WTF
+    </pre>
+
+    <pre class="prettyprint">
+            
+      from flask import Flask, request, make_response, redirect, render_template, session
+      from flask_bootstrap import Bootstrap
+      from flask_wtf import FlaskForm
+      from wtforms.fields import StringField, PasswordField, SubmitField
+      from wtforms.validators import DataRequired
+      
+      app = Flask(__name__)
+      bootstrap = Bootstrap(app)
+      
+      app.config['SECRET_KEY'] = 'SUPER SECRETO'
+      
+      todos = ['TODO 1', 'TODO 2', 'TODO 3']
+      
+      class LoginForm(FlaskForm):
+          username = StringField('Nombre de Usuario', validators=[DataRequired()])
+          password = PasswordField('Password', validators=[DataRequired()])
+          submit = SubmitField('Enviar')
+      
+      @app.errorhandler(404)
+      def not_found(error):
+          return render_template('404.html', error=error)
+      
+      @app.errorhandler(500)
+      def internal_server_error(error):
+        return render_template('500.html')
+      
+      @app.route('/')
+      def index():
+          user_ip = request.remote_addr
+          response = make_response(redirect('/hello'))
+          # response.set_cookie('user_ip', user_ip)
+          session['user_ip'] = user_ip
+          return response
+      
+      
+      @app.route('/hello')
+      def hello():
+          # raise(Exception('500 error'))
+          # mar = 'mar'[4]
+          # user_ip = request.cookies.get('user_ip')
+          user_ip = session.get('user_ip')
+          login_form = LoginForm()
+          context = {
+              'user_ip': user_ip,
+              'todos': todos,
+              'login_form': login_form
+          }
+          return render_template('hello.html', **context)
+    </pre>
+
+    <pre class="prettyprint">
+            
+      &ltdiv class="container">
+      &lt!-- 
+          &ltform action="{{ url_for('hello') }}" method="POST">
+              {{ login_form.username.label }}
+              {{ login_form.username }}
+          &lt/form>
+          -->
+          {{ wtf.quick_form(login_form) }}
+      &lt/div>
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 18 de 36 - Uso de Metodo POST en Flask-WTF</h2>
+    <pre class="prettyprint">
+            
+      @app.route('/hello', methods=['GET', 'POST'])
+      def hello():
+          # raise(Exception('500 error'))
+          # mar = 'mar'[4]
+          # user_ip = request.cookies.get('user_ip')
+          user_ip = session.get('user_ip')
+          username = session.get('username')
+          login_form = LoginForm()
+          context = {
+              'user_ip': user_ip,
+              'username': username,
+              'todos': todos,
+              'login_form': login_form
+          }
+      
+          if login_form.validate_on_submit():
+              username = login_form.username.data
+              session['username'] = username
+              return redirect(url_for('index'))
+      
+          return render_template('hello.html', **context)
+    </pre>
+
+    <pre class="prettyprint">
+            
+      {% if username %}
+      &lth1>Hola {{ username | capitalize }}&lt/h1>
+      {% endif %}
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 19 de 36 - Desplegar Flashes (mensajes emergentes)</h2>
+    <pre class="prettyprint">
+      from flask import Flask, request, make_response, redirect, render_template, session, url_for, flash
+
+      ...
+      ...
+            
+      @app.route('/hello', methods=['GET', 'POST'])
+      def hello():
+          # raise(Exception('500 error'))
+          # mar = 'mar'[4]
+          # user_ip = request.cookies.get('user_ip')
+          user_ip = session.get('user_ip')
+          username = session.get('username')
+          login_form = LoginForm()
+          context = {
+              'user_ip': user_ip,
+              'username': username,
+              'todos': todos,
+              'login_form': login_form
+          }
+      
+          if login_form.validate_on_submit():
+              username = login_form.username.data
+              session['username'] = username
+      
+              flash('Nombre de usuario registrado con éxito!')
+              return redirect(url_for('index'))
+      
+          return render_template('hello.html', **context)
+    </pre>
+    <pre class="prettyprint">
+            
+      {% extends 'bootstrap/base.html' %}
+      {% block head %}
+          {{ super() }}
+          &lttitle>{% block title %}Flask Platzi |{% endblock %}&lt/title>
+          &ltlink rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      {% endblock %}
+      {% block body %}
+          {% block header %}
+              {% include 'navbar.html' %}
+          {% endblock %}
+      
+          {% for message in get_flashed_messages() %}
+              &ltdiv class="alert alert-success alert-dismissible">
+                  &ltbutton type="button" data-dismiss="alert" class="close">&times;&lt/button>
+                  {{ message }}
+              &lt/div>
+          {% endfor %}
+      
+          {% block content %}
+          {% endblock %}
+      
+          {% block scripts %}
+              {{ super() }}
+          {% endblock %}
+      {% endblock %}
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 20 de 36 - Pruebas básicas con Flask-testing</h2>
+    <pre class="prettyprint">
+            
+    > pip install Flask-Testing
+    </pre>
+    <p>en main.py</p>
+    <pre class="prettyprint">
+      import unittest
+
+      ...
+      ...
+            
+      @app.cli.command()
+      def test():
+          tests = unittest.TestLoader().discover('tests')
+          unittest.TextTestRunner().run(tests)
+    </pre>
+    <p>en tests/test_base.py</p>
+    <pre class="prettyprint">
+            
+      from urllib import response
+      from flask_testing import TestCase
+      from flask import current_app, url_for
+      
+      from main import app
+      
+      class MainTest(TestCase):
+          def create_app(self):
+              app.config['TESTING'] = True
+              app.config['WTF_CSRF_ENABLED'] = False
+              return app
+      
+          def test_app_exists(self):
+              self.assertIsNotNone(current_app)
+              # self.assertIsNone(current_app)
+      
+          def test_app_in_test_mode(self):
+              self.assertTrue(current_app.config['TESTING'])
+          
+          def test_index_redirects(self):
+              response = self.client.get(url_for('index'))
+      
+              self.assertRedirects(response, url_for('hello'))
+      
+          def test_hello_get(self):
+              response = self.client.get(url_for('hello'))
+              self.assert200(response)
+      
+          def test_hello_post(self):
+              fake_form = {
+                  'username': 'fake-username',
+                  'password': 'fake-password'
+              }
+              response = self.client.post(url_for('hello'), data = fake_form)
+              self.assertRedirects(response, url_for('index'))
+    </pre>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 21 de 36 - Planteamiento del proyecto: To Do List</h2>
+    
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 22 de 36 - App Factory</h2>
+    <p>El profesor hace un factory al mismo proyecto
+      <br>
+      Yo me decidí mejor por crear una nueva carpeta con el refactory
+      <br>
+      carpeta <em>proyecto-curso</em>
+    </p>
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 23 de 36 - Uso de Blueprints</h2>
+    
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 24 de 36 - Blueprints II</h2>
+    
+  </article>
+</section>
+
+<hr>
+
+<section class="row">
+  <article class="col">
+    <h2>Sección 25 de 36 - Base de datos y App Engine con Flask</h2>
+    
+  </article>
+</section>
+
+
+
+
+
+
+
+
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>
